@@ -13,4 +13,4 @@ chmod +x installZabbix.bash
 ```
 **NOTE**
 
-The default timezone in **/etc/php/7.0/fpm/php.ini** and **/etc/php/7.0/cli/php.ini** is Europe/Madrid, you must change the timezone to adjust it to your location, the list of supported timezones is here: http://php.net/manual/en/timezones.php
+The default timezone in **/etc/httpd/conf.d/zabbix.conf** is Europe/Madrid, you must change the timezone to adjust it to your location, the list of supported timezones is here: http://php.net/manual/en/timezones.php
