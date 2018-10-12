@@ -11,7 +11,6 @@ wget -O installZabbix.bash https://raw.github.com/Palmc/ZabbixScript/master/inst
 With curl:
 ```
 curl -L https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash > installZabbix.bash && bash installZabbix.bash
-
 ```
 **NOTE**
 
