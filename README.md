@@ -3,13 +3,15 @@
 Script to install Zabbix 4.0 in CentOS 7 with PostgreSQL
 
 **Install instructions**
+
+With wget:
 ```
-wget -O installZabbix.bash https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash
+wget -O installZabbix.bash https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash && bash installZabbix.bash
 ```
-Run
+With curl:
 ```
-chmod +x installZabbix.bash
-./installZabbix.bash
+curl -L https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash > installZabbix.bash && bash installZabbix.bash
+
 ```
 **NOTE**
 
