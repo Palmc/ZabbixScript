@@ -1,6 +1,6 @@
 # [Zabbix](https://www.zabbix.com/)Script
 
-Script to install Zabbix 4.0 in CentOS 7 with PostgreSQL
+Script to install Zabbix 4.0 in CentOS 7 with PostgreSQL and PHP 7
 
 **Install instructions**
 
