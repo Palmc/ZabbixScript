@@ -12,7 +12,7 @@ while [ "$db_pass" != "$db_pass2" ] ; do
 	echo -e "\n\nError, the passwords dont match, try again"
 	read -s -p "Password: " db_pass2
 done
-
+echo -e "\nSuccess!!"
 yum install yum-utils epel-release vim -y
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 yum-config-manager --enable remi-php72
