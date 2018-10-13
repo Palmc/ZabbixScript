@@ -1,13 +1,15 @@
 #!/bin/bash
 
+set -e
+
 echo "Enter the password that the PostgreSQL´s zabbix user will have, remember that it is not seen when writing"
-read -s db_pass
+read -s -p "Password: " db_pass
 echo "Type password again"
-read -s db_pass2
+read -s -p "Password: " db_pass2
 
 while [ "$db_pass" != "$db_pass2" ] ; do
-	echo "The passwords dont match, try again"
-	read -s db_pass2
+	echo "Error, the passwords dont match, try again"
+	read -s -p "Password: " db_pass2
 done
 
 yum install yum-utils epel-release vim -y
