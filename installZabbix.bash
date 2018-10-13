@@ -49,7 +49,7 @@ systemctl restart postgresql-10.service
 
 zcat /usr/share/doc/zabbix-server-pgsql*/create.sql.gz | sudo -u zabbix psql zabbix 
 
-sed -i "s|# DBPassword= |DBPassword=$db_pass2|g" /etc/zabbix/zabbix_server.conf
+sed -i "s|# DBPassword=|DBPassword=$db_pass2|g" /etc/zabbix/zabbix_server.conf
 
 sed -i "s|    <IfModule mod_php5.c>|    <IfModule mod_php7.c>|g" /etc/httpd/conf.d/zabbix.conf
 sed -i "s|        # php_value date.timezone Europe/Riga|        php_value date.timezone Europe/Madrid|g" /etc/httpd/conf.d/zabbix.conf
