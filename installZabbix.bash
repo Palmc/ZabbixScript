@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+printf "\033c"
 
 echo "Enter the password that the PostgreSQL´s zabbix user will have, remember that it is not seen when writing"
 read -s -p "Password: " db_pass
@@ -8,7 +9,7 @@ echo -e "\n\nType password again"
 read -s -p "Password: " db_pass2
 
 while [ "$db_pass" != "$db_pass2" ] ; do
-	echo "Error, the passwords dont match, try again"
+	echo -e "\n\nError, the passwords dont match, try again"
 	read -s -p "Password: " db_pass2
 done
 
