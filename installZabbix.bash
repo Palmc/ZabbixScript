@@ -4,7 +4,7 @@ set -e
 
 echo "Enter the password that the PostgreSQL´s zabbix user will have, remember that it is not seen when writing"
 read -s -p "Password: " db_pass
-echo "Type password again"
+echo -e "\n\nType password again"
 read -s -p "Password: " db_pass2
 
 while [ "$db_pass" != "$db_pass2" ] ; do
