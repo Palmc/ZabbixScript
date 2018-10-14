@@ -21,7 +21,7 @@ installCentos(){
 	#Detect SElinux status
 	SELINUXSTATUS=$(getenforce)
 	if [ "$SELINUXSTATUS" == "Enforcing" ]; then
-		echo "SElinux is set as Enforcing, disable it or adjust your configuration";
+		echo "SElinux is set as Enforcing, disable it or adjust your configuration"
 		read -n 1 -s -r -p "Press any key to continue"
 		echo -e "\n"
 	fi;
