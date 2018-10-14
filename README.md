@@ -1,6 +1,6 @@
 # [Zabbix](https://www.zabbix.com/)Script
 
-Script to install Zabbix 4.0 in CentOS 7 with PostgreSQL and PHP 7
+Script to install Zabbix 4.0, tested on Debian 9, Ubuntu 18 and CentOS 7 
 
 **Install instructions**
 
@@ -14,4 +14,4 @@ curl -L https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash > in
 ```
 **NOTE**
 
-The default timezone in **/etc/httpd/conf.d/zabbix.conf** is Europe/Madrid, you must change the timezone to adjust it to your location, the list of supported timezones is here: http://php.net/manual/en/timezones.php
+The default timezone in **/etc/httpd/conf.d/zabbix.conf** or **/etc/zabbix/apache.conf** is Europe/Madrid, you must change the timezone to adjust it to your location, the list of supported timezones is here: http://php.net/manual/en/timezones.php
