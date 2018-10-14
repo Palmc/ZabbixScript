@@ -18,21 +18,21 @@ setPassword(){
 }
 
 installCentos(){
-#Detect SElinux status
+	#Detect SElinux status
 	SELINUXSTATUS=$(getenforce)
 	if [ "$SELINUXSTATUS" == "Enforcing" ]; then
 		echo "SElinux is set as Enforcing, disable it or adjust your configuration";
 		read -n 1 -s -r -p "Press any key to continue"
 	fi;
 	
-#Adding repositories
+	#Adding repositories
 	yum install yum-utils epel-release -y
 	rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 	rpm -Uvh https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-1.el7.noarch.rpm
 	rpm -Uvh https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
 	yum-config-manager --enable remi-php72
 	
-#Installing Zabbix components and PostgreSQL
+	#Installing Zabbix components and PostgreSQL
 	
 	yum install zabbix-server-pgsql zabbix-web-pgsql zabbix-agent postgresql10-contrib postgresql10-server -y
 
