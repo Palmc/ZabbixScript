@@ -5,16 +5,16 @@ printf "\033c"
 
 setPassword(){
 	#Set password of PostgreSQL´s zabbix user
-	echo "Enter the password that the PostgreSQL´s zabbix user will have, remember that it is not seen when writing"
-	read -s -p "Password: " db_pass
-	echo -e "\n\nType password again"
-	read -s -p "Password: " db_pass2
-
-	while [ "$db_pass" != "$db_pass2" ] ; do
-		echo -e "\n\nError, the passwords dont match, try again"
-		read -s -p "Password: " db_pass2
+	echo "Enter the password that the PostgreSQL´s zabbix user will have"
+	while true; do
+		echo -e "\n"
+		read -s -p "Password: " db_pass
+		echo -e "\n"
+		read -s -p "Type password again: " db_pass2
+	 	[ "$db_pass" = "$db_pass2" ] && break
+		echo -e "\nError, please try again"
 	done
-	echo -e "\nSuccess!!"
+	echo -e "\n\e[92mSucess!!\e[0m"
 }
 
 installCentos(){
