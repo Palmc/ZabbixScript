@@ -1,6 +1,6 @@
 # [Zabbix](https://www.zabbix.com/)Script
 
-Script to install Zabbix 4.0, tested on Debian 9, Ubuntu 18.04 and CentOS 7 
+Script to install Zabbix 4.0, tested on Debian 9, Ubuntu 18.04 and CentOS 7 with PostgreSQL 10
 
 **Install instructions**
 
