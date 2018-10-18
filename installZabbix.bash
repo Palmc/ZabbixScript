@@ -90,6 +90,31 @@ EOF
 
 	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
 }
+
+installRaspbian(){
+	#Adding repositories
+	wget https://repo.zabbix.com/zabbix/4.0/$ID/pool/main/z/zabbix-release/zabbix-release_4.0-2+`lsb_release -cs`_all.deb
+	dpkg -i zabbix-release_4.0-2+`lsb_release -cs`_all.deb
+	apt update
+	
+	#Installing Zabbix components and PostgreSQL
+	apt install -y zabbix-server-pgsql zabbix-frontend-php php-pgsql zabbix-agent postgresql
+	cd /var/lib/postgresql/
+	systemctl start postgresql; systemctl enable postgresql
+	sudo -u postgres psql <<EOF
+		create user "zabbix" with password '$db_pass2';
+		create database zabbix with owner zabbix;
+		GRANT ALL PRIVILEGES ON DATABASE zabbix TO zabbix;
+EOF
+
+	zcat /usr/share/doc/zabbix-server-pgsql/create.sql.gz | sudo -u zabbix psql zabbix
+
+	sed -i "s|# DBPassword=|DBPassword=$db_pass2|g" /etc/zabbix/zabbix_server.conf
+	sed -i "s|        # php_value date.timezone Europe/Riga|        php_value date.timezone Europe/Madrid|g" /etc/zabbix/apache.conf
+
+	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
+}
+
 #Detect distrib
 source /etc/os-release
 case $ID in
@@ -100,6 +125,10 @@ case $ID in
 	debian|ubuntu)
 		setPassword
 		installDebianBased
+		;;
+	raspbian)
+		setPassword
+		installRaspbian
 		;;
 	*)
 		echo "Distribution not supported"
