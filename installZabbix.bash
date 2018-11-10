@@ -38,6 +38,13 @@ installCentos(){
 	yum install zabbix-server-pgsql zabbix-web-pgsql zabbix-agent postgresql10-contrib postgresql10-server -y
 
 	/usr/pgsql-10/bin/postgresql-10-setup initdb
+	
+	# Installing timescaledb
+	
+	yum install -y https://timescalereleases.blob.core.windows.net/rpm/timescaledb-1.0.0-postgresql-10-0.x86_64.rpm
+	
+	sed -i "s|#shared_preload_libraries = ''|shared_preload_libraries = 'timescaledb'|g" /var/lib/pgsql/10/data/postgresql.conf
+	
 	systemctl start postgresql-10.service; systemctl enable postgresql-10.service
 
 	cd /var/lib/
@@ -46,6 +53,8 @@ installCentos(){
 		create user "zabbix" with password '$db_pass2';
 		create database zabbix with owner zabbix;
 		GRANT ALL PRIVILEGES ON DATABASE zabbix TO zabbix;
+		\c zabbix
+		CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 EOF
 	sed -i "s|local   all             all                                     peer|local   all             all                                     trust|g" /var/lib/pgsql/10/data/pg_hba.conf
 	sed -i "s|host    all             all             127.0.0.1/32            ident|host    all             all             127.0.0.1/32            md5|g" /var/lib/pgsql/10/data/pg_hba.conf
