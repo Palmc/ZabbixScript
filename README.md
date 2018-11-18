@@ -8,11 +8,11 @@ On raspbian it will be installed with PostgreSQL 9.6
 
 With wget:
 ```
-wget -O installZabbix.bash https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash && bash installZabbix.bash
+wget -O installZabbix.bash hhttps://raw.githubusercontent.com/Palmc/ZabbixScript/timescaledb/installZabbix.bash && bash installZabbix.bash
 ```
 With curl:
 ```
-curl -L https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash > installZabbix.bash && bash installZabbix.bash
+curl -L https://raw.githubusercontent.com/Palmc/ZabbixScript/timescaledb/installZabbix.bash > installZabbix.bash && bash installZabbix.bash
 ```
 **NOTE**
 
