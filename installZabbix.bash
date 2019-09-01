@@ -553,9 +553,9 @@ installCentos(){
 		create database "$psql_db_name" with owner "$psql_user";
 		GRANT ALL PRIVILEGES ON DATABASE "$psql_db_name" TO "$psql_user";
 EOF
-	sed -i "s|local   all             all                                     peer|local   all             all                                     trust|g" /var/lib/pgsql/10/data/pg_hba.conf
-	sed -i "s|host    all             all             127.0.0.1/32            ident|host    all             all             127.0.0.1/32            md5|g" /var/lib/pgsql/10/data/pg_hba.conf
-	sed -i "s|host    all             all             ::1/128                 ident|host    all             all             ::1/128                 md5|g" /var/lib/pgsql/10/data/pg_hba.conf
+	sed -r -i "s|(^local\s*all\s*all\s*)peer$|\1trust|g" /var/lib/pgsql/10/data/pg_hba.conf
+	sed -r -i "s|(^host\s*all\s*all\s*127.0.0.1/32\s*)ident$|\1md5|g" /var/lib/pgsql/10/data/pg_hba.conf
+	sed -r -i "s|(^host\s*all\s*all\s*::1/128\s*)ident$|\1md5|g" /var/lib/pgsql/10/data/pg_hba.conf
 
 	systemctl restart postgresql-10.service
 
@@ -563,7 +563,7 @@ EOF
 
 	sed -i "s|# DBPassword=|DBPassword=$psql_pass|g" /etc/zabbix/zabbix_server.conf
 	sed -i "s|    <IfModule mod_php5.c>|    <IfModule mod_php7.c>|g" /etc/httpd/conf.d/zabbix.conf
-	sed -i "s|        # php_value date.timezone Europe/Riga|        php_value date.timezone $time_zone|g" /etc/httpd/conf.d/zabbix.conf
+	sed -i -r "s|(.*timezone\s*)Europe\/Riga$|\1$time_zone|g" /etc/httpd/conf.d/zabbix.conf
 
 	systemctl restart zabbix-server zabbix-agent httpd; systemctl enable zabbix-server zabbix-agent httpd
 
@@ -597,7 +597,7 @@ EOF
 
 
 	sed -i "s|# DBPassword=|DBPassword=$psql_pass|g" /etc/zabbix/zabbix_server.conf
-	sed -i "s|        # php_value date.timezone Europe/Riga|        php_value date.timezone $time_zone|g" /etc/zabbix/apache.conf
+	sed -i -r "s|(.*timezone\s*)Europe\/Riga$|\1$time_zone|g" /etc/zabbix/apache.conf
 
 	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
 }
@@ -621,7 +621,7 @@ EOF
 	zcat /usr/share/doc/zabbix-server-pgsql/create.sql.gz | sudo -u "$psql_user" psql "$psql_db_name"
 
 	sed -i "s|# DBPassword=|DBPassword=$psql_pass|g" /etc/zabbix/zabbix_server.conf
-	sed -i "s|        # php_value date.timezone Europe/Riga|        php_value date.timezone $time_zone|g" /etc/zabbix/apache.conf
+	sed -i -r "s|(.*timezone\s*)Europe\/Riga$|\1$time_zone|g" /etc/zabbix/apache.conf
 
 	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
 }
