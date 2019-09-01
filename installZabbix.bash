@@ -475,8 +475,11 @@ setTimeZone(){
         # Set time zone
         IFS=$','
         read -p "Enter the time zone [UTC]: " time_zone
+	# Permit fail the following line
+	set +e
         printf '%s\n' ${timezones[@]} | grep -P "^$time_zone$" > /dev/null
         local error=$?
+	set -e
         if [[ $error != "0" ]]; then
                         echo "Timezone not supported"
                         echo "List of supported timezones: http://php.net/manual/en/timezones.php"
