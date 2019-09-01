@@ -14,6 +14,3 @@ With curl:
 ```
 curl -L https://raw.github.com/Palmc/ZabbixScript/master/installZabbix.bash > installZabbix.bash && bash installZabbix.bash
 ```
-**NOTE**
-
-The default timezone in **/etc/httpd/conf.d/zabbix.conf** or **/etc/zabbix/apache.conf** is Europe/Madrid, you must change the timezone to adjust it to your location, the list of supported timezones is here: http://php.net/manual/en/timezones.php
