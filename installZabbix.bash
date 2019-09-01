@@ -563,7 +563,7 @@ EOF
 
 	sed -i "s|# DBPassword=|DBPassword=$psql_pass|g" /etc/zabbix/zabbix_server.conf
 	sed -i "s|    <IfModule mod_php5.c>|    <IfModule mod_php7.c>|g" /etc/httpd/conf.d/zabbix.conf
-	sed -i -r "s|(.*timezone\s*)Europe\/Riga$|\1$time_zone|g" /etc/httpd/conf.d/zabbix.conf
+	sed -i -r "s|(^\s+)#\s+(.*timezone\s+)Europe\/Riga$|\1\2$time_zone|g" /etc/httpd/conf.d/zabbix.conf
 
 	systemctl restart zabbix-server zabbix-agent httpd; systemctl enable zabbix-server zabbix-agent httpd
 
@@ -597,7 +597,7 @@ EOF
 
 
 	sed -i "s|# DBPassword=|DBPassword=$psql_pass|g" /etc/zabbix/zabbix_server.conf
-	sed -i -r "s|(.*timezone\s*)Europe\/Riga$|\1$time_zone|g" /etc/zabbix/apache.conf
+	sed -i -r "s|(^\s+)#\s+(.*timezone\s+)Europe\/Riga$|\1\2$time_zone|g" /etc/zabbix/apache.conf
 
 	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
 }
@@ -621,7 +621,7 @@ EOF
 	zcat /usr/share/doc/zabbix-server-pgsql/create.sql.gz | sudo -u "$psql_user" psql "$psql_db_name"
 
 	sed -i "s|# DBPassword=|DBPassword=$psql_pass|g" /etc/zabbix/zabbix_server.conf
-	sed -i -r "s|(.*timezone\s*)Europe\/Riga$|\1$time_zone|g" /etc/zabbix/apache.conf
+	sed -i -r "s|(^\s+)#\s+(.*timezone\s+)Europe\/Riga$|\1\2$time_zone|g" /etc/zabbix/apache.conf
 
 	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
 }
