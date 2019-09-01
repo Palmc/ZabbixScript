@@ -5,20 +5,22 @@ printf "\033c"
 
 setTimeZone(){
 	# Set time zone
-	read -p "Enter the time zone: " time_zone
+	read -p "Enter the time zone [UTC]: " time_zone
+	time_zone=${time_zone:-UTC}
 }
 
 setPsqlUser(){
 	# Set PostgreSQL user name
-	read -p "Enter the PostgreSQL user name: " psql_user
+	read -p "Enter the PostgreSQL user name [zabbix]: " psql_user
+	psql_user=${psql_user:-zabbix}
 }
 
 setPsqlPassword(){
 	# Set password of PostgreSQL's $psql_user user
 	echo "Enter the password that the PostgreSQL's $psql_user user will have."
 	while true; do
-		read -s -p "Password: " psql_pass
-		read -s -p "Type password again: " psql_pass2
+		read -s -p $'\n'"Password: " psql_pass
+		read -s -p $'\n'"Type password again: " psql_pass2
 		[ "$psql_pass" = "$psql_pass2" ] && break
 		echo -e "\nError, please try again"
 	done
@@ -27,7 +29,8 @@ setPsqlPassword(){
 
 setPsqlDbName(){
 	# Set PostgreSQL database name
-	read -p "Enter the PostgreSQL database name: " psql_db_name
+	read -p "Enter the PostgreSQL database name [zabbix]: " psql_db_name
+	psql_db_name=${psql_db_name:-zabbix}
 }
 
 installCentos(){
@@ -37,8 +40,13 @@ installCentos(){
 		echo "SElinux is set as Enforcing, disable it or adjust your configuration"
 		read -p "Would you like to change it to permissive? " ans
 		case "$ans" in
-			[yY]|[yY][eE][sS]) setenforce 0 && echo -e "\n\e[92mSucess!!\e[0m" ;;
-			*) read -n 1 -s -r -p "Press any key to continue" ;;
+			[yY]|[yY][eE][sS]) 
+				sed -i s/^SELINUX=.*$/SELINUX=permissive/ /etc/sysconfig/selinux
+				setenforce 0 && echo -e "\n\e[92mSucess!!\e[0m" 
+				;;
+			*)
+				read -n 1 -s -r -p "Press any key to continue" 
+				;;
 		esac
 		echo -e "\n"
 	fi
