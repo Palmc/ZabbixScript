@@ -626,6 +626,13 @@ EOF
 	systemctl restart zabbix-server zabbix-agent apache2; systemctl enable zabbix-server zabbix-agent apache2 
 }
 
+# Ensure distribution is compatible
+if [ ! -f /etc/os-release ]
+then
+        echo "Distribution not supported"
+        exit 1
+fi
+
 # Detect distribution
 source /etc/os-release
 setTimeZone
